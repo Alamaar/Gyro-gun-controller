@@ -5,9 +5,8 @@ app = Flask(__name__)
 
 serverStatus = 0
 
-lgserver = Lightless_gun_server.Lighteless_gun_server() ####################################################################
+lgserver = Lightless_gun_server.Lighteless_gun_server() 
 
-# Defining the home page of our site
 @app.route("/")
 def index():
 
@@ -18,7 +17,6 @@ def index():
       	'Serverstatus'  : serverStatus
       	}
     return render_template('index.html', **templateData)
-
 
 
 @app.route("/<server>/<action>")
@@ -48,11 +46,13 @@ def calibration():
 
 @app.route("/calibration/<action>")
 def startCalibration(action):
-    ##
 
     if action == 'start':
         print("starting calibration")
         lgserver.start_calibration()
+    if action == 'stop':
+        print("stopping calibration")
+        lgserver.stop_calibration()    
 
     return render_template('calibration.html')    
 

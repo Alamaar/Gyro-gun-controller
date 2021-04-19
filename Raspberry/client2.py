@@ -15,7 +15,7 @@ ADDR = (SERVER, PORT)
 
 CHECKSUM = "69"
 REGUERST_MOUSE_MOVEMENT = "Mouse"
-MOUSE_DATA_LENGTH = 30
+MOUSE_DATA_LENGTH = 32
 
 
 class Client:
@@ -103,7 +103,6 @@ class Client:
         print("recived")
 
 
-
 client = Client()
 
 client.run()
@@ -116,15 +115,3 @@ print(client.recv_count_mouse)
 
 client.send(DISCONNECT_MESSAGE)
 
-
-
-#https://www.digitalocean.com/community/tutorials/understanding-class-and-instance-variables-in-python-3
-##miten pyöritetään jotta ohjelma voidaan lopettaa? vai tehdäänkö ns tyhmä client joka pyörii mailman tappiin asti. 
-#https://realpython.com/intro-to-python-threading/
-##thereadin event https://stackoverflow.com/questions/27254796/controlling-a-python-thread-with-a-function
-
-
-##mouse handler
-
-
-##lopettaminen onnistuuu 

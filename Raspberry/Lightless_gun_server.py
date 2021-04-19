@@ -27,7 +27,7 @@ class Lighteless_gun_server:
         self.server_is_running = False
         self.send_count = 0
 
-        self.gun = lighteless_gun_controller.Lightless_gun_controller() #open controller #########################################################################
+        self.gun = lighteless_gun_controller.Lightless_gun_controller() #open controller
 
     def run(self):
         print("[STARTING] server is starting...")
@@ -61,9 +61,8 @@ class Lighteless_gun_server:
             if msg == REGUERST_MOUSE_MOVEMENT:
                 self.send_count = self.send_count + 1
                 #
-                datastring = CHECKSUM + "," + self.gun.get_mouse_movement()  #########################################################################
-                #
-                
+                datastring = CHECKSUM + "," + self.gun.get_mouse_movement() 
+                #               
                 conn.send(datastring.encode(FORMAT))
             if msg == DISCONNECT_MESSAGE:
                 connected = False
@@ -76,7 +75,7 @@ class Lighteless_gun_server:
         if self.server_is_running:
             self.stop()  ## stop server while calibrating
         self.gun.start_calibration(resolution_vertical,resolution_horizontal)
-        print(str(self.gun.calibration_data))
+        ##print(str(self.gun.calibration_data))
           
 
     def calibration_status(self):
@@ -84,5 +83,7 @@ class Lighteless_gun_server:
             return self.gun.calibration_status
         else:
              return 69    
+    def stop_calibration(self):
+        self.gun.stop_calibration()
 
-## add self.gun. and acces elements that way ma       
+    

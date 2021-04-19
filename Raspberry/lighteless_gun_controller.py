@@ -23,11 +23,6 @@ class Lightless_gun_controller:
     def __init__(self):
         self.setup()
 
-    #self.setup()
-     #
-     # dfs
-     #    
-
     def remap(self, x, oMin, oMax, nMin, nMax ):
         ## 0.00000762551 avg time
         # add out off range option here or somewhere
@@ -73,8 +68,7 @@ class Lightless_gun_controller:
     #
     def run(self):
         pass
-    #
-    #
+
     def setup(self):
         while True:
             try:
@@ -135,8 +129,12 @@ class Lightless_gun_controller:
         self.calibration_data["vertical_res"] = resolution_vertical
         self.calibration_data["horizontal_res"] = resolution_horizontal
 
-        thread = threading.Thread(target=self.calibration_routine, args=())
-        thread.start()
+        self.thread = threading.Thread(target=self.calibration_routine, args=())
+        self.thread.start()
+
+    def stop_calibration(self)
+        self.calibration_status =  69
+        self.thread.join()
 
     def calibration_routine(self):
 
@@ -160,47 +158,34 @@ class Lightless_gun_controller:
                 print("debug2")
                 mouse_flag = 0
                 self.calibration_status = self.calibration_status + 1
-                time.sleep(0.5)  ##litle wait time maybe not needed        
+                #time.sleep(0.5)  ##litle wait time maybe not needed        
         ##end while
 
         #take two values and calculate avrg
-            
-        self.calibration_data["-vertical"] = -(calibration_data_list[0][2] + calibration_data_list[1][2]) / 2
-        self.calibration_data["+vertical"] = -(calibration_data_list[2][2] + calibration_data_list[3][2]) / 2
-        self.calibration_data["-horizontal"] = (calibration_data_list[1][1] + calibration_data_list[2][1]) / 2
-        self.calibration_data["+horizontal"] = (calibration_data_list[0][1] + calibration_data_list[3][1]) / 2
+        if self.calibration_status == 4:   ## only go if no external interupst to calibration routine    
+            self.calibration_data["-vertical"] = -(calibration_data_list[0][2] + calibration_data_list[1][2]) / 2
+            self.calibration_data["+vertical"] = -(calibration_data_list[2][2] + calibration_data_list[3][2]) / 2
+            self.calibration_data["-horizontal"] = (calibration_data_list[1][1] + calibration_data_list[2][1]) / 2
+            self.calibration_data["+horizontal"] = (calibration_data_list[0][1] + calibration_data_list[3][1]) / 2
 
-        # write calib data to file....
-        #self.write_Calibration_Data()
-
+            # write calib data to file....
+            self.write_Calibration_Data()
+        else:
+            print("Calibration failed")
 
     def write_Calibration_Data(self):
-        pass  ## to do saataa olla jossaki tallessa koodi maybe
+        try:
+            data = open("Calibration_data","w") 
+            data.write(str(self.calibration_data))
+            data.close()
+        except:
+            print("Error writing file")    
 
 
-
-
-#lightless_gun_controller.get_mouse_movement()
-##muunto classiiin
 
 if __name__ == '__main__':
     pass
 
 
-"""if __name__ == '__main__':
-    setup()
-    while True:
-        if ser.in_waiting > 0:
-            line = ":, 0 , 0 , 0 , 0"
-            if line.startswith(":"):
-                data = line.split(",")
-                if len(data) == 5:
-                    roll = int(data[1])
-                    pitch = int(data[2])
-                    yawn = int(data[3])
-                    mClick = int(data[4])
-                    horizontal, vertical = convertToPixV(yawn, pitch)
-                    mouse.position = (horizontal, vertical)     
-                    """
 
                             
