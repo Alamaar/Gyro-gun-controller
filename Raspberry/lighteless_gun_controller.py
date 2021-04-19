@@ -149,13 +149,11 @@ class Lightless_gun_controller:
 
             if raw_data[3] == 1 and mouse_flag == 0:
                 mouse_flag = 1
-                print("debug1")
                 ## save raw data to calib data list
                 calibration_data_list.insert(self.calibration_status,raw_data)
 
             if mouse_flag == 1 and raw_data[3] == 0:
                 ## move to next iteration...
-                print("debug2")
                 mouse_flag = 0
                 self.calibration_status = self.calibration_status + 1
                 #time.sleep(0.5)  ##litle wait time maybe not needed        
