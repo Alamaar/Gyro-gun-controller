@@ -1,0 +1,8 @@
+{
+    "-vertical" : -15,
+    "+vertical" : 15,
+    "-horizontal" : +23,
+    "+horizontal" : -23,
+    "vertical_res" : 1920,
+    "horizontal_res" : 1080
+    }
