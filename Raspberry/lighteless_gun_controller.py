@@ -53,7 +53,7 @@ class Lightless_gun_controller:
 
     #
     def convertToPix(self,horizontal,vertical):
-        horizontal = self.remap(horizontal,self.calibration_data["-horizontal"],self.calibration_data["+horizontal"],0,self.calibration_data["horizontal_res"])
+        horizontal = self.remap(horizontal,self.calibration_data["+horizontal"],self.calibration_data["-horizontal"],0,self.calibration_data["horizontal_res"])
         vertical = self.remap(vertical,self.calibration_data["-vertical"],self.calibration_data["+vertical"],0,self.calibration_data["vertical_res"])
         return horizontal, vertical
     #
@@ -93,11 +93,9 @@ class Lightless_gun_controller:
                         pitch = int(data[2])
                         yawn = int(data[3])
                         mClick = int(data[4])
-                        print(yawn)
-                        print(pitch)
-                        print("-")
                         horizontal, vertical = self.convertToPix(yawn, pitch)
                         datastring = f"{horizontal:.0f},{vertical:.0f},{mClick}"
+                        print(f"{pitch:.0f},{yawn:.0f}")
                         print(datastring)                     
                         return datastring
                         break
@@ -166,8 +164,8 @@ class Lightless_gun_controller:
 
         #take two values and calculate avrg
         if self.calibration_status == 4:   ## only go if no external interupst to calibration routine    
-            self.calibration_data["-vertical"] = -(calibration_data_list[0][2] + calibration_data_list[1][2]) / 2
-            self.calibration_data["+vertical"] = -(calibration_data_list[2][2] + calibration_data_list[3][2]) / 2
+            self.calibration_data["-vertical"] = (calibration_data_list[0][2] + calibration_data_list[1][2]) / 2
+            self.calibration_data["+vertical"] = (calibration_data_list[2][2] + calibration_data_list[3][2]) / 2
             self.calibration_data["-horizontal"] = (calibration_data_list[1][1] + calibration_data_list[2][1]) / 2
             self.calibration_data["+horizontal"] = (calibration_data_list[0][1] + calibration_data_list[3][1]) / 2
 
