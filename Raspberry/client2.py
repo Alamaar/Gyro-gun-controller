@@ -42,6 +42,8 @@ class Client:
         #time.sleep(0.1)
         #print(data_string) #debug
         #print("\n") #debug
+
+        #f"{horizontal:.0f},{vertical:.0f},{mClick}"
         
         if data_string.startswith(CHECKSUM):
             self.recv_count = self.recv_count + 1
@@ -49,7 +51,7 @@ class Client:
             if (len(data) == 4):
                 self.recv_count_mouse = self.recv_count_mouse + 1
                 if str(data[1]).isdigit and str(data[2]).isdigit:
-                    self.new_mouse_position = int(data[1]), int(data[2])
+                    self.new_mouse_position = int(data[1]), int(data[2])  #horizontal vertical
                     if self.new_mouse_position != self.last_mouse_position:
                         self.mouse.position = self.new_mouse_position
                         self.last_mouse_position = self.new_mouse_position

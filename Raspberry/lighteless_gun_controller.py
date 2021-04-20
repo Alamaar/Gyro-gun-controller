@@ -12,10 +12,10 @@ FORMAT = 'utf-8'
 class Lightless_gun_controller:
 
     calibration_data = {  #default values
-    "-vertical" : -50,
-    "+vertical" : +50,
-    "-horizontal" : +50,
-    "+horizontal" : -50,
+    "-vertical" : -20,
+    "+vertical" : 20,
+    "-horizontal" : -20,
+    "+horizontal" : 20,
     "vertical_res" : 1920,
     "horizontal_res" : 1080
     }
@@ -53,8 +53,8 @@ class Lightless_gun_controller:
 
     #
     def convertToPix(self,horizontal,vertical):
-        horizontal = self.remap(horizontal,self.calibration_data["+horizontal"],self.calibration_data["-horizontal"],0,self.calibration_data["horizontal_res"])
-        vertical = self.remap(vertical,self.calibration_data["-vertical"],self.calibration_data["+vertical"],0,self.calibration_data["vertical_res"])
+        horizontal = self.remap(horizontal,self.calibration_data["-horizontal"],self.calibration_data["+horizontal"],0,self.calibration_data["horizontal_res"])
+        vertical = self.remap(vertical,self.calibration_data["+vertical"],self.calibration_data["-vertical"],0,self.calibration_data["vertical_res"])
         return horizontal, vertical
     #
     def get_Calibration_Data(self):
