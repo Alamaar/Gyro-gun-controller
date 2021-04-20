@@ -1,8 +1,1 @@
-{
-    "-vertical" : -15,
-    "+vertical" : 15,
-    "-horizontal" : +23,
-    "+horizontal" : -23,
-    "vertical_res" : 1920,
-    "horizontal_res" : 1080
-    }
+{'-vertical': -20.5, '+vertical': 20.0, '-horizontal': -20.5, '+horizontal': 21.5, 'vertical_res': 1920, 'horizontal_res': 1080}

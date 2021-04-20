@@ -93,8 +93,12 @@ class Lightless_gun_controller:
                         pitch = int(data[2])
                         yawn = int(data[3])
                         mClick = int(data[4])
+                        print(yawn)
+                        print(pitch)
+                        print("-")
                         horizontal, vertical = self.convertToPix(yawn, pitch)
-                        datastring = f"{horizontal:.0f},{vertical:.0f},{mClick}"                     
+                        datastring = f"{horizontal:.0f},{vertical:.0f},{mClick}"
+                        print(datastring)                     
                         return datastring
                         break
 
@@ -132,7 +136,7 @@ class Lightless_gun_controller:
         self.thread = threading.Thread(target=self.calibration_routine, args=())
         self.thread.start()
 
-    def stop_calibration(self)
+    def stop_calibration(self):
         self.calibration_status =  69
         self.thread.join()
 
@@ -151,6 +155,7 @@ class Lightless_gun_controller:
                 mouse_flag = 1
                 ## save raw data to calib data list
                 calibration_data_list.insert(self.calibration_status,raw_data)
+                print(raw_data)
 
             if mouse_flag == 1 and raw_data[3] == 0:
                 ## move to next iteration...
