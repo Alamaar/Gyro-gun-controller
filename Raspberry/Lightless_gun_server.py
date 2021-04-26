@@ -21,8 +21,7 @@ MOUSE_DATA_LENGTH = 32
 
 class Lighteless_gun_server:
 
-     ErrorLog = 
-    {
+    ErrorLog = {
         "mousemovement_errors" : 0
     }
 
