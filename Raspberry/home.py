@@ -19,9 +19,9 @@ def index():
     return render_template('index.html', **templateData)
 
 
-@app.route("/<route>/<action>")
+@app.route("/<controll>/<action>")
 def serverControll(server, action):
-    if route == 'server':
+    if controll == 'server':
         if action == 'start':
             print("server.start")
             lgserver.run()
@@ -31,7 +31,7 @@ def serverControll(server, action):
             lgserver.stop()
             serverStatus = lgserver.server_is_running
         
-    if route == 'calibration':
+    if controll == 'calibration':
         if action == 'start':
             print("starting calibration")
             lgserver.start_calibration()
