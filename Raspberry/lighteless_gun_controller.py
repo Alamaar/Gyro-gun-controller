@@ -104,7 +104,7 @@ class Lightless_gun_controller:
                             #print(datastring)                     
                             return datastring
             except:
-                ErrorLog["mousemovement_errors"] = ErrorLog["mousemovement_errors"] + 1
+                ErrorLog["mousemovement_errors"] = ErrorLog["mousemovement_errors"] + 1               ## error log is not defined
 
     def get_mouse_movement_new(self):
 
@@ -116,7 +116,7 @@ class Lightless_gun_controller:
     def get_raw_sensor_data(self): ##[roll, pitch, yawn, mClick]
         while True:
             if self.ser.in_waiting > 0:
-                line = self.ser.readline().decode(FORMAT)
+                line = self.ser.readline().decode(FORMAT)   ##utf-8 codec cant decode byt 0x94 in position 0 invalid start byte
                 if line.startswith(":"):
                     data = line.split(",")
                     if len(data) == 5:
@@ -170,10 +170,10 @@ class Lightless_gun_controller:
 
         #take two values and calculate avrg
         if self.calibration_status == 4:   ## only go if no external interupst to calibration routine    
-            self.calibration_data["-vertical"] = (calibration_data_list[0][2] + calibration_data_list[1][2]) / 2
-            self.calibration_data["+vertical"] = (calibration_data_list[2][2] + calibration_data_list[3][2]) / 2
-            self.calibration_data["-horizontal"] = (calibration_data_list[1][1] + calibration_data_list[2][1]) / 2
-            self.calibration_data["+horizontal"] = (calibration_data_list[0][1] + calibration_data_list[3][1]) / 2
+            self.calibration_data["+vertical"] = (calibration_data_list[0][1] + calibration_data_list[3][1]) / 2
+            self.calibration_data["-vertical"] = (calibration_data_list[1][1] + calibration_data_list[2][1]) / 2
+            self.calibration_data["-horizontal"] = (calibration_data_list[0][2] + calibration_data_list[1][2]) / 2
+            self.calibration_data["+horizontal"] = (calibration_data_list[2][2] + calibration_data_list[3][2]) / 2
 
             # write calib data to file....
             self.write_Calibration_Data()
