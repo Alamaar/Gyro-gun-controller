@@ -103,8 +103,8 @@ class Lightless_gun_controller:
                             #print(f"{pitch:.0f},{yawn:.0f}")
                             #print(datastring)                     
                             return datastring
-            except:
-                ErrorLog["mousemovement_errors"] = ErrorLog["mousemovement_errors"] + 1               ## error log is not defined
+            except TypeError:
+                print("type error")               ## error log is not defined
 
     def get_mouse_movement_new(self):
 

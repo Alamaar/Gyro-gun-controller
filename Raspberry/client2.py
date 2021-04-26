@@ -68,7 +68,7 @@ class Client:
                         else:
                             self.mouse.release(Button.left)
                 except TypeError:
-                    ErrorLog["recv_errors"] = ErrorLog["recv_errors"] + 1
+                    print("Type-error")
 
         self.mouse_btn_state = mouse_press
 
