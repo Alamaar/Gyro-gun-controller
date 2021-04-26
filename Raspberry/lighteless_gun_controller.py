@@ -20,6 +20,10 @@ class Lightless_gun_controller:
     "horizontal_res" : 1080
     }
 
+    ErrorLog = {
+        "mousemovement_errors" : 0
+    }
+
     def __init__(self):
         self.setup()
 
@@ -84,21 +88,23 @@ class Lightless_gun_controller:
     def get_mouse_movement(self):
          #to send "checksum,  resolution_horizontal, resolution_vertical,  mouseclick"
          while True:
-            if self.ser.in_waiting > 0:
-                line = self.ser.readline().decode(FORMAT)
-                if line.startswith(":"):
-                    data = line.split(",")
-                    if len(data) == 5:
-                        roll = int(data[1])
-                        pitch = int(data[2])
-                        yawn = int(data[3])
-                        mClick = int(data[4])
-                        horizontal, vertical = self.convertToPix(yawn, pitch)
-                        datastring = f"{horizontal:.0f},{vertical:.0f},{mClick}"
-                        print(f"{pitch:.0f},{yawn:.0f}")
-                        print(datastring)                     
-                        return datastring
-                        break
+            try:
+                if self.ser.in_waiting > 0:
+                    line = self.ser.readline().decode(FORMAT)
+                    if line.startswith(":"):
+                        data = line.split(",")
+                        if len(data) == 5:
+                            roll = int(data[1])
+                            pitch = int(data[2])
+                            yawn = int(data[3])
+                            mClick = int(data[4])
+                            horizontal, vertical = self.convertToPix(yawn, pitch)
+                            datastring = f"{horizontal:.0f},{vertical:.0f},{mClick}"
+                            #print(f"{pitch:.0f},{yawn:.0f}")
+                            #print(datastring)                     
+                            return datastring
+            except:
+                ErrorLog["mousemovement_errors"] = ErrorLog["mousemovement_errors"] + 1
 
     def get_mouse_movement_new(self):
 

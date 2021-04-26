@@ -1,25 +1,30 @@
 <!DOCTYPE html>
    <head>
       <title>GPIO Control</title>
-      <link rel="stylesheet" href='../static/master.css'/>
+      <link rel="stylesheet" href='../static/style.css'/>
    </head>
    <body>
-		<h1>Server Status</h1>
-		<h3>Server ==>  {{ Serverstatus }}</h3>
+      <div class="cursor"></div>
+
+      <div class="Container">
+		<h1 class="Headline">Lightless gun</h1>
+		<h3 class="Container2">Server ==>  {{ Serverstatus }}</h3>
 		
 		<br>
 
-		<h2> Commands </h2>
-		<h3> 
-			Server ==> 
+		<h3 class="Container2"> 
+			Server
+         <br>
          <button onclick="location.href='/server/start'" value="start" type="button">ON</button>  
          <button onclick="location.href='/server/stop'" value="stop" type="button">OFF</button> 
          <br>
-         <button onclick="location.href='/calibration'" value="calibration" type="button">Calibration</button>
          <br>
-         <button onclick="location.href='/test'" value="Test" type="button">Test site</button>
+         <button onclick="location.href='/calibration/start'" value="calibration" type="button">Start Calibration</button>
+
    </h3>
 
-		
+      </div>
+
+   <script src="../static/ad.js"></script>
    </body>
 </html>

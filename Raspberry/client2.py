@@ -19,6 +19,11 @@ MOUSE_DATA_LENGTH = 32
 
 
 class Client:
+
+    ErrorLog = {
+        "recv_errors" : 0
+    }
+
     def __init__(self):
         self._is_running = False
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -49,21 +54,22 @@ class Client:
             self.recv_count = self.recv_count + 1
             data = data_string.split(",")
             if (len(data) == 4):
-                self.recv_count_mouse = self.recv_count_mouse + 1
-                if str(data[1]).isdigit and str(data[2]).isdigit:
+                try:
+                    self.recv_count_mouse = self.recv_count_mouse + 1                  
                     self.new_mouse_position = int(data[1]), int(data[2])  #horizontal vertical
                     if self.new_mouse_position != self.last_mouse_position:
                         self.mouse.position = self.new_mouse_position
                         self.last_mouse_position = self.new_mouse_position
-
-                if str(data[3]).isdigit:
+                
                     mouse_press = int(data[3])
                     if mouse_press != self.mouse_btn_state:
                         if mouse_press == 1:
                             self.mouse.press(Button.left)
                         else:
                             self.mouse.release(Button.left)
-    
+                except TypeError:
+                    ErrorLog["recv_errors"] = ErrorLog["recv_errors"] + 1
+
         self.mouse_btn_state = mouse_press
 
     def stop(self):
@@ -114,6 +120,7 @@ input()
 client.stop()
 print(client.recv_count)
 print(client.recv_count_mouse)
+print(str(client.ErrorLog))
 
 client.send(DISCONNECT_MESSAGE)
 
