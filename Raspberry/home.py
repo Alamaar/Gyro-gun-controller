@@ -26,7 +26,7 @@ def serverControll(server, action):
             print("server.start")
             lgserver.run()
             serverStatus = lgserver.server_is_running
-        elif action == 'stop' lgserver.server_is_running:
+        elif action == 'stop' and lgserver.server_is_running:
             print("server.stop")
             lgserver.stop()
             serverStatus = lgserver.server_is_running
