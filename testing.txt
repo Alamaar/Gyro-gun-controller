@@ -27,3 +27,10 @@
 -h 4 +  -1 
  
 +h 126 + 104 
+
+
+
+ei lähe pyörittäään serveriä jostain syystä
+
+https://github.com/kffijr8082095f/Sulautetunprojekti/compare/git?expand=1
+

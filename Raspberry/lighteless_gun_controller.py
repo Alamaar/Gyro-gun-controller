@@ -20,10 +20,6 @@ class Lightless_gun_controller:
     "horizontal_res" : 1080
     }
 
-    ErrorLog = {
-        "mousemovement_errors" : 0
-    }
-
     def __init__(self):
         self.setup()
 

@@ -20,11 +20,7 @@ MOUSE_DATA_LENGTH = 32
 
 
 class Lighteless_gun_server:
-
-    ErrorLog = {
-        "mousemovement_errors" : 0
-    }
-
+    
     def __init__(self):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind(ADDR)
