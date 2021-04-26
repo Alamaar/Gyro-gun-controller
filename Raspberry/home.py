@@ -25,11 +25,10 @@ def serverControll(controll, action):
         if action == 'start':
             print("server.start")
             lgserver.run()
-            serverStatus = lgserver.server_is_running
         elif action == 'stop' and lgserver.server_is_running:
             print("server.stop")
             lgserver.stop()
-            serverStatus = lgserver.server_is_running
+            
         
     if controll == 'calibration':
         if action == 'start':
@@ -37,11 +36,15 @@ def serverControll(controll, action):
             lgserver.start_calibration()
         if action == 'stop':
             print("stopping calibration")
-            lgserver.stop_calibration()    
+            lgserver.stop_calibration() 
+
+    serverStatus = lgserver.server_is_running           
                 
     templateData = {
       		'Serverstatus'  : serverStatus
       	}
+
+
 
     return render_template('index.html', **templateData)      
          
