@@ -137,7 +137,7 @@ class Lightless_gun_controller:
         self.calibration_data["vertical_res"] = resolution_vertical
         self.calibration_data["horizontal_res"] = resolution_horizontal
 
-        self.thread = threading.Thread(target=self.calibration_routine, args=())
+        self.thread = threading.Thread(target=self.calibration_routine, args=())   
         self.thread.start()
 
     def stop_calibration(self):
