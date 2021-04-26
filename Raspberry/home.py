@@ -20,7 +20,7 @@ def index():
 
 
 @app.route("/<controll>/<action>")
-def serverControll(server, action):
+def serverControll(controll, action):
     if controll == 'server':
         if action == 'start':
             print("server.start")
