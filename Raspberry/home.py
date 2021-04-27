@@ -33,7 +33,7 @@ def serverControll(controll, action):
     if controll == 'calibration':
         if action == 'start':
             print("starting calibration")
-            lgserver.start_calibration(2560,1440)
+            lgserver.start_calibration(resolution_horizontal = 2560, resolution_vertical = 1440)
         if action == 'stop':
             print("stopping calibration")
             lgserver.stop_calibration() 
