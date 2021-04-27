@@ -125,13 +125,13 @@ class Lightless_gun_controller:
                         return data_list
                         break             
     
-    def start_calibration(self, resolution_vertical = 1920 , resolution_horizontal = 1080):
+    def start_calibration(self, resolution_horizontal = 1920, resolution_vertical = 1080):
         ##start calibration routine for the controller, user has to point 4 corners of the screen 
         ## and press the trigger in sequency to going from upper left counter-clockwise
         self.calibration_status = 0
 
-        self.calibration_data["vertical_res"] = resolution_vertical
         self.calibration_data["horizontal_res"] = resolution_horizontal
+        self.calibration_data["vertical_res"] = resolution_vertical
 
         self.thread = threading.Thread(target=self.calibration_routine, args=())   
         self.thread.start()

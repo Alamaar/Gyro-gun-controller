@@ -71,7 +71,7 @@ class Lighteless_gun_server:
         self.send_count = 0
 
 
-    def start_calibration(self,resolution_vertical = 1920 , resolution_horizontal = 1080):
+    def start_calibration(self, resolution_horizontal = 1920, resolution_vertical = 1080):
         if self.server_is_running:
             self.stop()  ## stop server while calibrating
         self.gun.start_calibration(resolution_vertical,resolution_horizontal)
