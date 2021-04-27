@@ -96,8 +96,8 @@ class Lightless_gun_controller:
                             mClick = int(data[4])
                             horizontal, vertical = self.convertToPix(yawn, pitch)
                             datastring = f"{horizontal:.0f},{vertical:.0f},{mClick}"
-                            #print(f"{pitch:.0f},{yawn:.0f}")
-                            #print(datastring)                     
+                            print(f"{pitch:.0f},{yawn:.0f}")
+                            print(datastring)                     
                             return datastring
             except TypeError:
                 print("type error")               ## error log is not defined
@@ -175,6 +175,8 @@ class Lightless_gun_controller:
             self.write_Calibration_Data()
         else:
             print("Calibration failed")
+
+        print(str(self.calibration_data))    
 
     def write_Calibration_Data(self):
         try:
