@@ -19,48 +19,36 @@ def index():
     return render_template('index.html', **templateData)
 
 
-@app.route("/<server>/<action>")
-def serverControll(server, action):
-    if server == 'server':
+@app.route("/<controll>/<action>")
+def serverControll(controll, action):
+    if controll == 'server':
         if action == 'start':
             print("server.start")
             lgserver.run()
-            serverStatus = lgserver.server_is_running
-        elif action == 'stop':
+        elif action == 'stop' and lgserver.server_is_running:
             print("server.stop")
             lgserver.stop()
-            serverStatus = lgserver.server_is_running
+            
         
-        
+    if controll == 'calibration':
+        if action == 'start':
+            print("starting calibration")
+            lgserver.start_calibration(resolution_horizontal = 2560, resolution_vertical = 1440)
+        if action == 'stop':
+            print("stopping calibration")
+            lgserver.stop_calibration() 
+
+    serverStatus = lgserver.server_is_running           
+                
     templateData = {
       		'Serverstatus'  : serverStatus
       	}
 
+
+
     return render_template('index.html', **templateData)      
          
 
-@app.route("/calibration")
-def calibration():
-
-    return render_template('calibration.html')
-
-@app.route("/calibration/<action>")
-def startCalibration(action):
-
-    if action == 'start':
-        print("starting calibration")
-        lgserver.start_calibration()
-    if action == 'stop':
-        print("stopping calibration")
-        lgserver.stop_calibration()    
-
-    return render_template('calibration.html')    
-
-@app.route("/test")
-def testingSite():
-
-    return render_template('test.html')
-
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="192.168.1.152")

@@ -20,7 +20,7 @@ MOUSE_DATA_LENGTH = 32
 
 
 class Lighteless_gun_server:
-
+    
     def __init__(self):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind(ADDR)
@@ -71,10 +71,10 @@ class Lighteless_gun_server:
         self.send_count = 0
 
 
-    def start_calibration(self,resolution_vertical = 1920 , resolution_horizontal = 1080):
+    def start_calibration(self, resolution_horizontal = 1920, resolution_vertical = 1080):
         if self.server_is_running:
             self.stop()  ## stop server while calibrating
-        self.gun.start_calibration(resolution_vertical,resolution_horizontal)
+        self.gun.start_calibration(resolution_vertical = resolution_vertical,resolution_horizontal = resolution_horizontal)
         ##print(str(self.gun.calibration_data))
           
 

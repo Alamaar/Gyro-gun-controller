@@ -167,9 +167,9 @@ void loop() {
             //Serial.print(ypr[1] * 180/M_PI); //roll
             //Serial.print("\t");
             //Serial.println(ypr[2] * 180/M_PI); //pitch
-            yawn = (ypr[0] * 180/M_PI) * 10;
-            pitch = (ypr[2] * 180/M_PI )* 10;
-            roll = (ypr[1] * 180/M_PI) * 10;
+            yawn = (ypr[0] * 180/M_PI) * 5;
+            pitch = (ypr[2] * 180/M_PI )* 5;
+            roll = (ypr[1] * 180/M_PI) * 5;
             button = !digitalRead(TRIGGER);
 
             Serial.print(":,");

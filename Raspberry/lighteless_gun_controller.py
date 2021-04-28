@@ -84,21 +84,23 @@ class Lightless_gun_controller:
     def get_mouse_movement(self):
          #to send "checksum,  resolution_horizontal, resolution_vertical,  mouseclick"
          while True:
-            if self.ser.in_waiting > 0:
-                line = self.ser.readline().decode(FORMAT)
-                if line.startswith(":"):
-                    data = line.split(",")
-                    if len(data) == 5:
-                        roll = int(data[1])
-                        pitch = int(data[2])
-                        yawn = int(data[3])
-                        mClick = int(data[4])
-                        horizontal, vertical = self.convertToPix(yawn, pitch)
-                        datastring = f"{horizontal:.0f},{vertical:.0f},{mClick}"
-                        print(f"{pitch:.0f},{yawn:.0f}")
-                        print(datastring)                     
-                        return datastring
-                        break
+            try:
+                if self.ser.in_waiting > 0:
+                    line = self.ser.readline().decode(FORMAT)
+                    if line.startswith(":"):
+                        data = line.split(",")
+                        if len(data) == 5:
+                            roll = int(data[1])
+                            pitch = int(data[2])
+                            yawn = int(data[3])
+                            mClick = int(data[4])
+                            horizontal, vertical = self.convertToPix(yawn, pitch)
+                            datastring = f"{horizontal:.0f},{vertical:.0f},{mClick}"
+                            #print(f"{pitch:.0f},{yawn:.0f}")
+                            #print(datastring)                     
+                            return datastring
+            except TypeError:
+                print("type error")               ## error log is not defined
 
     def get_mouse_movement_new(self):
 
@@ -110,7 +112,7 @@ class Lightless_gun_controller:
     def get_raw_sensor_data(self): ##[roll, pitch, yawn, mClick]
         while True:
             if self.ser.in_waiting > 0:
-                line = self.ser.readline().decode(FORMAT)
+                line = self.ser.readline().decode(FORMAT)   ##utf-8 codec cant decode byt 0x94 in position 0 invalid start byte
                 if line.startswith(":"):
                     data = line.split(",")
                     if len(data) == 5:
@@ -123,15 +125,15 @@ class Lightless_gun_controller:
                         return data_list
                         break             
     
-    def start_calibration(self, resolution_vertical = 1920 , resolution_horizontal = 1080):
+    def start_calibration(self, resolution_horizontal = 1920, resolution_vertical = 1080):
         ##start calibration routine for the controller, user has to point 4 corners of the screen 
         ## and press the trigger in sequency to going from upper left counter-clockwise
         self.calibration_status = 0
 
-        self.calibration_data["vertical_res"] = resolution_vertical
         self.calibration_data["horizontal_res"] = resolution_horizontal
+        self.calibration_data["vertical_res"] = resolution_vertical
 
-        self.thread = threading.Thread(target=self.calibration_routine, args=())
+        self.thread = threading.Thread(target=self.calibration_routine, args=())   
         self.thread.start()
 
     def stop_calibration(self):
@@ -164,15 +166,17 @@ class Lightless_gun_controller:
 
         #take two values and calculate avrg
         if self.calibration_status == 4:   ## only go if no external interupst to calibration routine    
-            self.calibration_data["-vertical"] = (calibration_data_list[0][2] + calibration_data_list[1][2]) / 2
-            self.calibration_data["+vertical"] = (calibration_data_list[2][2] + calibration_data_list[3][2]) / 2
-            self.calibration_data["-horizontal"] = (calibration_data_list[1][1] + calibration_data_list[2][1]) / 2
-            self.calibration_data["+horizontal"] = (calibration_data_list[0][1] + calibration_data_list[3][1]) / 2
+            self.calibration_data["+vertical"] = (calibration_data_list[0][1] + calibration_data_list[3][1]) / 2
+            self.calibration_data["-vertical"] = (calibration_data_list[1][1] + calibration_data_list[2][1]) / 2
+            self.calibration_data["-horizontal"] = (calibration_data_list[0][2] + calibration_data_list[1][2]) / 2
+            self.calibration_data["+horizontal"] = (calibration_data_list[2][2] + calibration_data_list[3][2]) / 2
 
             # write calib data to file....
             self.write_Calibration_Data()
         else:
             print("Calibration failed")
+
+        print(str(self.calibration_data))    
 
     def write_Calibration_Data(self):
         try:
