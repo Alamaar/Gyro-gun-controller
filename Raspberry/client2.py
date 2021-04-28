@@ -55,7 +55,7 @@ class Client:
             data = data_string.split(",")
             if (len(data) == 4):
                 try:
-                    print(data_string)
+                    #print(data_string)
                     self.recv_count_mouse = self.recv_count_mouse + 1                  
                     self.new_mouse_position = int(data[1]), int(data[2])  #horizontal vertical
                     if self.new_mouse_position != self.last_mouse_position:
