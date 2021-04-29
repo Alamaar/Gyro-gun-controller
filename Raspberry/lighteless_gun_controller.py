@@ -8,6 +8,7 @@ import time
 import threading
 
 FORMAT = 'utf-8'
+ROLLCALIBRATIONANGLE = 45*5
 
 class Lightless_gun_controller:
 
@@ -97,7 +98,14 @@ class Lightless_gun_controller:
                             horizontal, vertical = self.convertToPix(yawn, pitch)
                             datastring = f"{horizontal:.0f},{vertical:.0f},{mClick}"
                             #print(f"{pitch:.0f},{yawn:.0f}")
-                            #print(datastring)                     
+                            #print(datastring)
+                            # 
+                            if roll > ROLLCALIBRATIONANGLE:
+                                self.calibration_data["-horizontal"] = self.calibration_data["-horizontal"] + 0.1
+                                self.calibration_data["+horizontal"] = self.calibration_data["+horizontal"] + 0.1
+                            elif roll < -ROLLCALIBRATIONANGLE:
+                                self.calibration_data["-horizontal"] = self.calibration_data["-horizontal"] - 0.1
+                                self.calibration_data["+horizontal"] = self.calibration_data["+horizontal"] - 0.1                     
                             return datastring
             except TypeError:
                 print("type error")               ## error log is not defined
