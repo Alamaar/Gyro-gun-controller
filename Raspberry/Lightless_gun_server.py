@@ -1,12 +1,11 @@
 #rasberry 192.168.1.152 
 #pc       192.168.1.202
 
-# to send "checksum, resolutino_vertical, resolution_horizontal, mouseclick"
-
 import socket 
 import threading
 import lighteless_gun_controller
 
+#Defaults
 HEADER = 64
 PORT = 5050
 SERVER = "192.168.1.152"
@@ -22,6 +21,7 @@ MOUSE_DATA_LENGTH = 32
 class Lighteless_gun_server:
     
     def __init__(self):
+        #configures sockkets and opens controller
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind(ADDR)
         self.server_is_running = False
@@ -30,18 +30,21 @@ class Lighteless_gun_server:
         self.gun = lighteless_gun_controller.Lightless_gun_controller() #open controller
 
     def run(self):
+        #starts the server thread
         print("[STARTING] server is starting...")
         self.server_is_running = True
         thread = threading.Thread(target=self.server_thread, args=())
         thread.start()
 
     def stop(self):
+        #stop the server and passes the blocckin  accept call
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.client.connect(ADDR)
         self.client.send(DISCONNECT_MESSAGE.encode())
         self.server_is_running = False   
 
     def server_thread(self):
+        #server thread assing new connections to handle clint method
         self.server.listen()
         print(f"[LISTENING] Server is listening on {SERVER}")
         while self.server_is_running:
@@ -72,6 +75,7 @@ class Lighteless_gun_server:
 
 
     def start_calibration(self, resolution_horizontal = 1920, resolution_vertical = 1080):
+        #start calibration
         if self.server_is_running:
             self.stop()  ## stop server while calibrating
         self.gun.start_calibration(resolution_vertical = resolution_vertical,resolution_horizontal = resolution_horizontal)
@@ -79,11 +83,13 @@ class Lighteless_gun_server:
           
 
     def calibration_status(self):
+        #gives calibration status
         if hasattr(self.gun, 'calibration_status'):
             return self.gun.calibration_status
         else:
              return 69    
     def stop_calibration(self):
+        #stops calibraion
         self.gun.stop_calibration()
 
     

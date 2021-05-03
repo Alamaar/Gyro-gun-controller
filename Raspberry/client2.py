@@ -6,6 +6,7 @@ import threading
 from pynput.mouse import Button, Controller
 import time
 
+#Defaults 
 HEADER = 64
 PORT = 5050
 FORMAT = 'utf-8'
@@ -38,17 +39,12 @@ class Client:
     def move_mouse(self,data_string):
          # to send "checksum, , resolution_horizontal, resolution_vertical  mouseclick"
         #mousepressed = 0/1
-        # Button.left
-        # mouse_btn_state dict { "timestamp"} maybe kattoo tuleeko onglemia
-        #	
+        # Button.left	
         #dx (int) – The horizontal offset.
         #dy (int) – The vertical offset.
         mouse_press = self.mouse_btn_state
-        #time.sleep(0.1)
         #print(data_string) #debug
         #print("\n") #debug
-
-        #f"{horizontal:.0f},{vertical:.0f},{mClick}"
         
         if data_string.startswith(CHECKSUM):
             self.recv_count = self.recv_count + 1
