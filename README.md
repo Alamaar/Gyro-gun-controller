@@ -3,11 +3,11 @@
 ![GIF](./DOCS/Controller.gif)
 
 The game controller works as mouse
-input device to the pc. Device has
+input device to the PC. Device has
 its own website to control when
 the controller is on or off and make
 calibration to the controller. Project
-also include making game in unity.
+also includes game made with unity.
 Game is designed in mind to be
 used with controller.
 
@@ -27,19 +27,20 @@ Frameworks and languages:
 
 
 
-MPU6050 and Arduino feeds angles Roll,Pitch, Yawn with USB to Raspberry Pi. In RasbPi angles are converted to pixel values and then send to client via sockets. In client pixel values move the mouse and press Left Mouse if controllers trigger is pressed. 
+MPU6050 and Arduino feeds angles Roll,Pitch, Yawn with USB to Raspberry Pi. In RasbPi angles are converted to pixel values and then send to the client via sockets. In the client pixel values move the mouse and press Left Mouse if controllers trigger is pressed. 
 
 ![Simplyfyed diagram](./DOCS/Diagram1.png)
 
 
-
+### Web UI
+![Web UI](./DOCS/ui.png)
 
 ### Input lag and Yaw drift
 
-With no other devices on wifi network input lag was under 25ms. 
-Yaw drift with this sensor was around 1 degree per minute
+With no other devices on wifi network the input lag was under 25ms.
+Yaw drift with this sensor was around 1 degree per minute.
 Yawn drift can be countered while in use by tilting controller 45 degress to oposite direction to correct the mouse placement in screen.
 
 
 
-In Nucleo folder is yearlier version of the project using Nucleo with GY-50, GY-61 sensors. 
+In Nucleo folder is yearlier version of the project using Nucleo with GY-50, GY-61 sensors.
